@@ -243,8 +243,8 @@ describe('Issue', () => {
           gas: '2100000',
           gasPrice: "1"
         })
+         
       issue = await dispute.methods.issues(0).call()
-
       const remainingContractBalance =
         parseInt(await web3.eth.getBalance(disputeAddress))
 
