@@ -74,13 +74,14 @@ contract Dispute {
 
     function acceptIssue(uint _issueIndex) public restricted payable {
         Issue storage issue = issues[_issueIndex];
-
+        require(msg.value >= issue.funds);
         require(msg.sender == issue.acceptor);
+
         issue.funds += msg.value;
         issue.accepted = true;
     }
 
-    function resolveDispute(uint _issueIndex, address _winner, uint _award) public {
+    function settleIssue(uint _issueIndex, address _winner, uint _award) public {
         Issue storage issue = issues[_issueIndex];
 
         require(msg.sender == issue.arbitrator);
@@ -88,17 +89,18 @@ contract Dispute {
         require(_winner == issue.submitter || _winner == issue.acceptor);
         require(_award + issue.arbitratorFee <= issue.funds);
 
-        issue.accepted = true;
+        issue.resolved = true;
         issue.arbitrator.transfer(issue.arbitratorFee);
         issue.funds -= issue.arbitratorFee;
 
         issue.funds -= _award;
         _winner.transfer(_award);
 
-        if (_winner == issue.submitter)
-            issue.acceptor.transfer(issue.funds);
-        else
+        if (_winner == issue.submitter) {
+            issue.acceptor.transfer(issue.funds); //
+        } else {
             issue.submitter.transfer(issue.funds);
+        }
+        issue.funds = 0;
     }
-
 }
