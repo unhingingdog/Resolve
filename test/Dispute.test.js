@@ -32,7 +32,9 @@ beforeEach(async () => {
     gas: '1000000'
   })
 
-  ;[disputeAddress] = await factory.methods.getDeployedDisputes().call()
+  ;[disputeAddress] = await factory.methods.getUserDisputes(
+      disputeInitiatorAccount
+  ).call()
 
   dispute = await new web3.eth.Contract(
     JSON.parse(compiledDispute.interface),
@@ -45,9 +47,18 @@ it('Deploys a factory and a dispute', () => {
   assert(dispute.options.address)
 })
 
-it('returns a list of deployed disputes', async () => {
-  const deployed = await factory.methods.getDeployedDisputes().call()
-  assert.equal(deployed.length, 1)
+it('associates the dispute with the parties addresses', async () => {
+  const deployedForInitiator = await factory.methods.getUserDisputes(
+      disputeInitiatorAccount
+  ).call()
+
+  const deployedForRespondent = await factory.methods.getUserDisputes(
+      disputeInitiatorAccount
+  ).call()
+
+  assert.equal(deployedForInitiator.length, 1)
+  assert.equal(deployedForRespondent.length, 1)
+  assert(deployedForInitiator[0] === deployedForRespondent[0])
 })
 
 
@@ -243,7 +254,7 @@ describe('Issue', () => {
           gas: '2100000',
           gasPrice: "1"
         })
-         
+
       issue = await dispute.methods.issues(0).call()
       const remainingContractBalance =
         parseInt(await web3.eth.getBalance(disputeAddress))

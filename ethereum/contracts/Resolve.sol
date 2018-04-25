@@ -1,15 +1,16 @@
 pragma solidity ^0.4.17;
 
 contract DisputeFactory {
-    address[] public deployedDisputes;
+    mapping(address => address[]) public userDisputes;
 
     function createDispute(address _respondent) public {
         address dispute = new Dispute(msg.sender, _respondent);
-        deployedDisputes.push(dispute);
+        userDisputes[msg.sender].push(dispute);
+        userDisputes[_respondent].push(dispute);
     }
 
-    function getDeployedDisputes() constant returns(address[]) {
-        return deployedDisputes;
+    function getUserDisputes(address _user) public constant returns (address[]) {
+      return userDisputes[_user];
     }
 }
 

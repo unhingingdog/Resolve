@@ -3,7 +3,7 @@ import DisputeFactory from './build/DisputeFactory.json'
 
 const instance = new web3.eth.Contract(
   JSON.parse(DisputeFactory.interface),
-  '0x447AEbA5C54eFCB5313ca710d169cD2b27B73A7f'
+  '0x310022bBf7c2604BBfc13c67ABe570eDC7c586B3'
 )
 
 export default instance
