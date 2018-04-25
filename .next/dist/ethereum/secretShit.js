@@ -1,0 +1,7 @@
+'use strict';
+
+module.exports = {
+  infuraNodeKey: 'qO7kSUoFKR02WVNpxBf1',
+  mnu: 'enroll bag first exist core jungle exile water bullet miracle leisure illness'
+};
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImV0aGVyZXVtL3NlY3JldFNoaXQuanMiXSwibmFtZXMiOlsibW9kdWxlIiwiZXhwb3J0cyIsImluZnVyYU5vZGVLZXkiLCJtbnUiXSwibWFwcGluZ3MiOiI7O0FBQUEsT0FBQSxBQUFPO2lCQUFVLEFBQ0EsQUFDZjtPQUZGLEFBQWlCLEFBRVY7QUFGVSxBQUNmIiwiZmlsZSI6InNlY3JldFNoaXQuanMiLCJzb3VyY2VSb290IjoiL1VzZXJzL0hhbWlzaC9EZXNrdG9wL3Jlc29sdmVDb250cmFjdCJ9
