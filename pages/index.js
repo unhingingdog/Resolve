@@ -3,34 +3,31 @@ import factory from '../ethereum/factory'
 import web3 from '../ethereum/web3'
 
 export default class DisputeIndex extends Component {
-  static async getInitialProps() {
 
-    // const user = await web3.eth.getAccounts()
-    // console.log(user)
-    const disputes = await factory.methods.getUserDisputes('0xa80a4e5be677a1cfef80a08daa627762610149d9').call()
+constructor(props) {
+  super(props)
 
-    return { disputes }
+  this.state = {
+    user: '',
+    disputes: []
   }
+}
 
-  constructor(props) {
-    super(props)
+getDisputes = async (user) => {
+  const disuptes = await factory.methods.getUserDisputes(user).call()
+  return disuptes
+}
 
-    this.renderCampaigns = this.renderCampaigns.bind(this)
-  }
-
-  async renderCampaigns() {
-    await web3.currentProvider.publicConfigStore.getState().selectedAddress
-  }
-
-
-
+async componentDidMount() {
+  const users = await web3.eth.getAccounts()
+  const disputes = await this.getDisputes(users[0])
+  this.setState({ user: users[0], disputes })
+}
 
   render() {
-    this.renderCampaigns()
-
     return(
       <div>
-        <h1>{this.props.disputes}</h1>
+        <h1>{this.state.disputes}</h1>
       </div>
     )
   }

@@ -12,6 +12,10 @@ contract DisputeFactory {
     function getUserDisputes(address _user) public constant returns (address[]) {
       return userDisputes[_user];
     }
+
+    function getUser() public constant returns (address) {
+      return msg.sender;
+    }
 }
 
 contract Dispute {
